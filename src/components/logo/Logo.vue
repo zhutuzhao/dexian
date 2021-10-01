@@ -4,7 +4,7 @@
     <div class="left">
       <div class="logo_chinese">得闲管理平台</div>
       <div class="out">
-        <img src="../assets/img/logout_1.png" alt="" />
+        <img src="~assets/img/logo/logout_1.png" alt="" />
         <span>退出</span>
       </div>
     </div>
@@ -20,6 +20,7 @@ export default {
   position: relative;
   background-color: #fff;
   height: 112px;
+  z-index: 999;
 }
 .logo .logo_pinyin {
   margin: 36px 41px 0 65px;
@@ -28,6 +29,19 @@ export default {
   font-family: Segoe UI Historic;
   font-weight: 400;
   color: #ff8900;
+}
+
+.logo .logo_pinyin::after {
+  position: absolute;
+  top: 112px;
+  left: 40px;
+  right: 19px;
+  display: block;
+  content: "";
+  width: 171px;
+  height: 1px;
+  background: #dddddd;
+  border-radius: 1px;
 }
 .logo .logo_chinese {
   margin: 41px 0 39px 26px;
@@ -41,6 +55,7 @@ export default {
   position: absolute;
   right: 40px;
   top: 48px;
+  cursor: pointer;
 }
 .out img {
   width: 19px;

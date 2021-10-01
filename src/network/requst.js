@@ -4,7 +4,7 @@ import axios from "axios"
 
 export function requst(config) {
   const instance = axios.create({
-    baseURL:'',
+    // baseURL:'http://47.119.112.252:8089/',
     timeout:5000
   })
   instance.interceptors.request.use(config=>{
