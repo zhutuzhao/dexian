@@ -54,9 +54,9 @@ export default {
       url: "api/web/login/in",
       method:'POST',
       data: {
-        account: "LCE",
+        account: "admin_test",
         password: "123456",
-        role: "1",
+        role: "0",
       },
       headers: { 'Content-Type': "application/x-www-form-urlencoded" },
       // headers: { 'Content-Type': "application/json" },
