@@ -50,16 +50,16 @@ export default {
   },
   mounted() {
     console.log("组件创建成功");
+    const data1 = new FormData();
+    data1.append('account',"LCE")
+    data1.append('password',"123456")
+    data1.append('role',"1")
     requst({
       url: "api/web/login/in",
-      method:'POST',
-      data: {
-        account: "admin_test",
-        password: "123456",
-        role: "0",
-      },
-      headers: { 'Content-Type': "application/x-www-form-urlencoded" },
-      // headers: { 'Content-Type': "application/json" },
+      method: "POST",
+      data: data1,
+      // headers: { 'Content-Type': "application/x-www-form-urlencoded" },
+      // headers: { "Content-Type": "multipart/form-data" },
       // dataType: "jsonp",
     });
     // requst({
