@@ -42,21 +42,19 @@ export default {
     },
     methods:{
         async loginAccount(){
+            console.log(this.role);
             this.res = await loginRequest(this.account,this.password,this.role);
             console.log(this.res);
-            // 用户密码报错
+            // 点击报错
             if(this.res.data.msg == "用户不存在"){
+                console.log("用户不存在");
                 this.$refs.wrongAccount.style.display = "flex";
                 setTimeout(()=>{
                     this.$refs.wrongAccount.style.display = "none";
-                },2000)
-            }else if(this.res.data.msg == "用户密码错误"){
-                this.$refs.wrongPassword.style.display = "flex";
-                setTimeout(()=>{
-                    this.$refs.wrongPassword.style.display = "none";
-                },2000)
+                },5000)
             }
         },
+        
         switchToShang(){
             console.log("1");
             this.role = "1";
@@ -70,9 +68,7 @@ export default {
             this.$refs.business.className = "shangjia";
         }
     },
-    mounted(){
-        this.role = "1";
-    }
+    
 }
 </script>
 

@@ -20,8 +20,8 @@
                 <input type="password" placeholder="请输入密码" v-model="password">
             </div>
             <div class="Login-button" @click="loginAccount">登录</div>
-            <div ref="wrongAccount" class="warning username"><img src="../../assets/img/login/warning.png" alt=""><div class="content">不存在该用户</div></div>
-            <div ref="wrongPassword" class="warning password"><img src="../../assets/img/login/warning.png" alt=""><div class="content">密码错误</div></div>
+            <div class="warning username"><img src="../../assets/img/login/warning.png" alt=""><div class="content">不存在该用户</div></div>
+            <div class="warning password"><img src="../../assets/img/login/warning.png" alt=""><div class="content">密码错误</div></div>
         </div>
     </div>
 </div>
@@ -36,42 +36,25 @@ export default {
         return{
             account,
             password,
-            role:"1",
-            res,
+            role:"0",
         }
     },
     methods:{
-        async loginAccount(){
-            this.res = await loginRequest(this.account,this.password,this.role);
-            console.log(this.res);
-            // 用户密码报错
-            if(this.res.data.msg == "用户不存在"){
-                this.$refs.wrongAccount.style.display = "flex";
-                setTimeout(()=>{
-                    this.$refs.wrongAccount.style.display = "none";
-                },2000)
-            }else if(this.res.data.msg == "用户密码错误"){
-                this.$refs.wrongPassword.style.display = "flex";
-                setTimeout(()=>{
-                    this.$refs.wrongPassword.style.display = "none";
-                },2000)
-            }
+        loginAccount(){
+            loginRequest(this.account,this.password,this.role);
         },
         switchToShang(){
-            console.log("1");
-            this.role = "1";
+            console.log("0");
+            this.role = 0;
             this.$refs.business.className = "shangjia pressed";
             this.$refs.admin.className = "guanliyuan";
         },
         switchToGuan(){
-            console.log("0");
-            this.role = "0";
+            console.log("1");
+            this.role = 1;
             this.$refs.admin.className = "guanliyuan pressed";
             this.$refs.business.className = "shangjia";
         }
-    },
-    mounted(){
-        this.role = "1";
     }
 }
 </script>
@@ -197,7 +180,6 @@ export default {
     /* display: flex; */
     display: none ;
     position: absolute;
-    z-index: 3;
     padding: 10px 20px; 
     top: 300px;
     left: 50%;

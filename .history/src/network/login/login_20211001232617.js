@@ -8,6 +8,6 @@ export function loginRequest(account, password, role){
     return requst({
         url:`api/web/login/in`,
         method:"POST",
-        data: formdata,
+        data:formdata,
     });
 }

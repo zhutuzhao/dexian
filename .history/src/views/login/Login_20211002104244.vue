@@ -71,7 +71,10 @@ export default {
         }
     },
     mounted(){
-        this.role = "1";
+        setDefaultData(){
+            console.log("加载完毕了");
+            this.role = "1";
+        }
     }
 }
 </script>

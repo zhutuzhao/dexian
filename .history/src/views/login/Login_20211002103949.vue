@@ -57,6 +57,7 @@ export default {
                 },2000)
             }
         },
+        
         switchToShang(){
             console.log("1");
             this.role = "1";
@@ -70,8 +71,10 @@ export default {
             this.$refs.business.className = "shangjia";
         }
     },
-    mounted(){
-        this.role = "1";
+    mounted:{
+        setDefaultData(){
+            this.role = "1";
+        }
     }
 }
 </script>

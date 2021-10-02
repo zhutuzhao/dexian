@@ -71,7 +71,10 @@ export default {
         }
     },
     mounted(){
+        this.account = NULL;
+        this.password = NULL;
         this.role = "1";
+        this.res = NULL;
     }
 }
 </script>

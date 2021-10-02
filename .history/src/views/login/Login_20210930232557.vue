@@ -8,70 +8,31 @@
         <div class="Login-contianer">
             <div class="title">得闲管理系统</div>
             <div class="option">
-                <div ref="business" class="shangjia pressed" @click="switchToShang">商家</div>
-                <div ref="admin" class="guanliyuan" @click="switchToGuan">管理员</div>
+                <div class="shangjia">商家</div>
+                <div class="guanliyuan">管理员</div>
             </div>
             <div class="input userName">
                 <img class="pic" src="../../assets/img/login/username.png" alt="">
-                <input type="text" placeholder="请输入账号" v-model="account">
+                <input type="text" placeholder="请输入账号" >
             </div>
             <div class="input passWord">
                 <img class="pic" src="../../assets/img/login/password.png" alt="">
-                <input type="password" placeholder="请输入密码" v-model="password">
+                <input type="password" placeholder="请输入密码">
             </div>
-            <div class="Login-button" @click="loginAccount">登录</div>
-            <div ref="wrongAccount" class="warning username"><img src="../../assets/img/login/warning.png" alt=""><div class="content">不存在该用户</div></div>
-            <div ref="wrongPassword" class="warning password"><img src="../../assets/img/login/warning.png" alt=""><div class="content">密码错误</div></div>
+            <div class="Login-button">登录</div>
         </div>
     </div>
 </div>
 </template>
 
 <script>
-import {loginRequest} from "../../network/login/login.js";
-
 export default {
     name:"Login",
-    data(){
-        return{
-            account,
-            password,
-            role:"1",
-            res,
-        }
+    data:{
+        
     },
-    methods:{
-        async loginAccount(){
-            this.res = await loginRequest(this.account,this.password,this.role);
-            console.log(this.res);
-            // 用户密码报错
-            if(this.res.data.msg == "用户不存在"){
-                this.$refs.wrongAccount.style.display = "flex";
-                setTimeout(()=>{
-                    this.$refs.wrongAccount.style.display = "none";
-                },2000)
-            }else if(this.res.data.msg == "用户密码错误"){
-                this.$refs.wrongPassword.style.display = "flex";
-                setTimeout(()=>{
-                    this.$refs.wrongPassword.style.display = "none";
-                },2000)
-            }
-        },
-        switchToShang(){
-            console.log("1");
-            this.role = "1";
-            this.$refs.business.className = "shangjia pressed";
-            this.$refs.admin.className = "guanliyuan";
-        },
-        switchToGuan(){
-            console.log("0");
-            this.role = "0";
-            this.$refs.admin.className = "guanliyuan pressed";
-            this.$refs.business.className = "shangjia";
-        }
-    },
-    mounted(){
-        this.role = "1";
+    method:{
+        
     }
 }
 </script>
@@ -79,15 +40,16 @@ export default {
 <style scoped>
 .Login{
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     width: 1440px;
     height: 900px;
+    background-color: hsl(108, 100%, 83%, 60%);
     padding-top: 142px;
 }
 .background-pic{
     position: absolute;
-    left: -200px;
-    top: -40px;
+    left: 0;
+    top: -37px;
     z-index: -1;
     width: 1680px;
 }
@@ -97,7 +59,6 @@ export default {
     background-color: antiquewhite;
     margin: 0 auto;
     display: flex;
-    box-shadow: 0 0 20px hsl(34, 100%, 21% ,25%);
 }
 .main-pic{
     background-color: #f7ad54;
@@ -108,7 +69,6 @@ export default {
     margin: 115px 82px;
 }
 .Login-contianer{
-    position: relative;
     width: 572px;
     height: 616px;
     background-color: #fff;
@@ -192,28 +152,5 @@ export default {
     cursor: pointer;
 }
 
-/* 警告错误 */
-.Login-contianer .warning{
-    /* display: flex; */
-    display: none ;
-    position: absolute;
-    z-index: 3;
-    padding: 10px 20px; 
-    top: 300px;
-    left: 50%;
-    margin-right: auto;
-    margin-left: auto;
-    border: 1px #D7D7D7 solid;
-    border-radius: 4px;
-    background-color: #fff;
-    transform: translateX(-50%);
-    box-shadow: 0 0 5px hsl(0, 0%, 0%, 10%);
-}
-.Login-contianer .warning img{
-    width: 21px;
-    margin-right: 12px;
-}
-.Login-contianer .warning .content{
-    font-size: 18px;
-}
+
 </style>

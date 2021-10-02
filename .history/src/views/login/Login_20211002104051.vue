@@ -70,8 +70,11 @@ export default {
             this.$refs.business.className = "shangjia";
         }
     },
-    mounted(){
-        this.role = "1";
+    mounted:{
+        setDefaultData(){
+            console.log("加载完毕了");
+            this.role = "1";
+        }
     }
 }
 </script>
