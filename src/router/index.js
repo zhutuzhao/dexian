@@ -133,10 +133,10 @@ router.beforeEach((to, from, next) => {
     if (token === null || token === "") {
       next("/Login");
     } else {
-      if (role == "1") {
-        to.path.indexOf("/Business") == -1 ? next("/Business") : next();
+      if (role == "1") {//判断登录者信息，如果商家就不能访问后台界面
+        to.path.indexOf("/Business") == -1 ? next("/Business/Statistics_a") : next();
       } else {
-        to.path.indexOf("/Backstage") == -1 ? next("/Backstage") : next();
+        to.path.indexOf("/Backstage") == -1 ? next("/Backstage/Statistics_a_ba") : next();
       }
     }
   }

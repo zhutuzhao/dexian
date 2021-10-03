@@ -2,7 +2,6 @@
   <div class="Business">
     <logo></logo>
     <main-nav :navs="business_nav" />
-    <!-- <router-view name="Business"/> -->
     <router-view />
   </div>
 </template>
@@ -18,7 +17,7 @@ export default {
   },
   data() {
     return {
-      business_nav: [
+      business_nav: [//传入导航栏信息
         {
           img: "https://i.bmp.ovh/imgs/2021/10/cb3b3bae4197d6f4.png",
           title: "统计",

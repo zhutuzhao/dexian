@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import "normalize.css/normalize.css";
+import "normalize.css/normalize.css";//导入css基本模板
 
 Vue.config.productionTip = false
 

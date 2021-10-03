@@ -41,7 +41,6 @@
 
 <script>
 import { loginRequest } from "../../network/login/login.js";
-// import { mapMutations } from "vuex";
 export default {
   name: "Login",
   data() {

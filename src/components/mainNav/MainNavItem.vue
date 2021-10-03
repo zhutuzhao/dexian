@@ -46,9 +46,6 @@ export default {
   },
   methods: {
     itemClick(index) {
-      // console.log(index);
-      // console.log(this);
-      console.log(this.nav_paths[index]);
       this.$router.push(this.nav_paths[index]);
     },
     isActive(path) {

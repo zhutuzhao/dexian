@@ -1,6 +1,7 @@
 export default {
   changeLogin(state, user) {
     // 修改token，并将token存入localStorage
+    // 修改role，并将role存入localStorage
     state.Authorization = user.Authorization;
     state.role = user.role;
     localStorage.setItem("Authorization", user.Authorization);

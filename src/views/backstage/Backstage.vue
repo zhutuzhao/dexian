@@ -7,14 +7,14 @@
 </template>
 
 <script>
-import Logo from "../../components/logo/Logo.vue";
-import MainNav from "../../components/mainNav/MainNav.vue";
+import Logo from "components/logo/Logo.vue";
+import MainNav from "components/mainNav/MainNav.vue";
 export default {
   name: "Backstage",
   components: { Logo, MainNav },
   data() {
     return {
-      backstage_nav: [
+      backstage_nav: [//传入导航栏信息
         {
           img: "https://i.bmp.ovh/imgs/2021/10/cb3b3bae4197d6f4.png",
           title: "统计",

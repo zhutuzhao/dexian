@@ -2,11 +2,14 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
+        //别名，例如可用assets/xx.txt代替../../assets/xx.txt等
         assets: "@/assets",
         common: "@/common",
         components: "@/components",
         network: "@/network",
         views: "@/views",
+        store: "@/store",
+        router: "@/router",
       },
     },
   },
