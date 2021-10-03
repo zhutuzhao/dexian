@@ -11,6 +11,7 @@
         :path="nav_paths[index]"
         :key="item"
         @click="itemClick(index)"
+        :class="{ active: isActive(nav_paths[index]) }"
       >
         {{ item }}
       </div>
@@ -50,7 +51,11 @@ export default {
       console.log(this.nav_paths[index]);
       this.$router.push(this.nav_paths[index]);
     },
+    isActive(path) {
+      return this.$route.path.indexOf(path) != -1;
+    },
   },
+  computed: {},
 };
 </script>
 

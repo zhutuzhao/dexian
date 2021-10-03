@@ -60,8 +60,8 @@ export default {
         role: this.role,
       });
       this.role == "1"
-        ? this.$router.push("/Business")
-        : this.$router.push("/Backstage");
+        ? this.$router.push("/Business/Statistics_a")
+        : this.$router.push("/Backstage/Statistics_a_ba");
       // 用户密码报错
       if (this.res.data.msg == "用户不存在") {
         this.$refs.wrongAccount.style.display = "flex";

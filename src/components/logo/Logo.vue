@@ -3,7 +3,7 @@
     <div class="left logo_pinyin">Dexian</div>
     <div class="left">
       <div class="logo_chinese">得闲管理平台</div>
-      <div class="out">
+      <div class="out" @click="outClick">
         <img src="~assets/img/logo/logout_1.png" alt="" />
         <span>退出</span>
       </div>
@@ -13,6 +13,13 @@
 <script>
 export default {
   name: "Logo",
+  methods: {
+    outClick() {
+      localStorage.removeItem("Authorization");
+      localStorage.removeItem("role");
+      this.$router.push("/Login");
+    },
+  },
 };
 </script>
 <style scoped>
