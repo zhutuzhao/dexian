@@ -1,9 +1,9 @@
 <template>
-  <div class="aftermarket_a">Aftermarket_a</div>
+  <div class="Order_manage">Order_manage</div>
 </template>
 <script>
 export default {
-  name: "Aftermarket_a",
+  name: "Order_manage",
 };
 </script>
 

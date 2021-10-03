@@ -59,8 +59,8 @@ export default {
         role: this.role,
       });
       this.role == "1"
-        ? this.$router.push("/Business/Statistics_a")
-        : this.$router.push("/Backstage/Statistics_a_ba");
+        ? this.$router.push("/Business/Data_statistics")
+        : this.$router.push("/Backstage/Order_statistics");
       // 用户密码报错
       if (this.res.data.msg == "用户不存在") {
         this.$refs.wrongAccount.style.display = "flex";
