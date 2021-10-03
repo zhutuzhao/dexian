@@ -7,7 +7,14 @@ import getters from "./getters";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    // 存token
+    Authorization: localStorage.getItem("Authorization")
+      ? localStorage.getItem("Authorization")
+      : "",
+    // 存role
+    role: localStorage.getItem("role") ? localStorage.getItem("role") : "",
+  },
   mutations,
   actions,
   getters,

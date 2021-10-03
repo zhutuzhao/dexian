@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import { requst } from "network/requst.js";
 import Logo from "../../components/logo/Logo.vue";
 import MainNav from "../../components/mainNav/MainNav.vue";
 export default {
@@ -48,33 +47,7 @@ export default {
       ],
     };
   },
-  mounted() {
-    console.log("组件创建成功");
-    const data1 = new FormData();
-    data1.append('account',"LCE")
-    data1.append('password',"123456")
-    data1.append('role',"1")
-    requst({
-      url: "api/web/login/in",
-      method: "POST",
-      data: data1,
-      // headers: { 'Content-Type': "application/x-www-form-urlencoded" },
-      // headers: { "Content-Type": "multipart/form-data" },
-      // dataType: "jsonp",
-    });
-    // requst({
-    //   url: "http://47.119.112.252:8089//web/login/in",
-    //   method:'POST',
-    //   data: {
-    //     account: "LCE",
-    //     password: "123456",
-    //     role: "1",
-    //   },
-    //   headers: { 'Content-Type': "application/x-www-form-urlencoded" },
-    //   // headers: { 'Content-Type': "application/json" },
-    //   // dataType: "jsonp",
-    // });
-  },
+  mounted() {},
 };
 </script>
 

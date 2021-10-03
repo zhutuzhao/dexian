@@ -35,9 +35,7 @@ const Statistics_a_ba = () =>
 const routes = [
   {
     path: "",
-    // redirect: "/Login",
-    // redirect: "/Business",
-    redirect: "/Backstage",
+    redirect: "/Login",
   },
   {
     path: "/Login",
@@ -124,5 +122,23 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
+// 导航守卫
+// 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
+router.beforeEach((to, from, next) => {
+  if (to.path === "/Login") {
+    next();
+  } else {
+    let token = localStorage.getItem("Authorization");
+    let role = localStorage.getItem("role");
+    if (token === null || token === "") {
+      next("/Login");
+    } else {
+      if (role == "1") {
+        to.path.indexOf("/Business") == -1 ? next("/Business") : next();
+      } else {
+        to.path.indexOf("/Backstage") == -1 ? next("/Backstage") : next();
+      }
+    }
+  }
+});
 export default router;
