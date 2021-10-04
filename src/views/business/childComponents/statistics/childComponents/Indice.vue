@@ -1,9 +1,6 @@
 <template>
   <div class="indice">
-    <div class="title">
-      <img src="~assets/img/Data_statistics/indice_1.png" alt="" />
-      <span>核心指标</span>
-    </div>
+    <main-title :title="title" />
     <div class="item_list">
       <div class="item">
         <div class="item_title">订单数</div>
@@ -22,8 +19,15 @@
 </template>
 
 <script>
+import MainTitle from "components/main_title/MainTitle.vue";
 export default {
-    name:'Indice'
+  name: "Indice",
+  components: { MainTitle },
+  data() {
+    return {
+      title: "核心指标",
+    };
+  },
 };
 </script>
 
@@ -31,21 +35,6 @@ export default {
 .indice {
   height: 242px;
   background: #fff;
-}
-.indice .title {
-  padding-top: 20px;
-  padding-left: 20px;
-  height: 46px;
-}
-
-.indice .title span {
-  position: relative;
-  margin-left: 13px;
-  top: -6px;
-  font-size: 20px;
-
-  font-weight: bold;
-  color: #333333;
 }
 .item_list {
   display: flex;
