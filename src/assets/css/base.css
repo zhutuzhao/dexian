@@ -25,4 +25,12 @@
 }
 body {
   background-color: #f9f9f9;
+  font-family: Microsoft YaHei;
+}
+.main_item {
+  /* 页面主要部分样式 */
+  position: absolute;
+  left: 256px;
+  top: 138px;
+  width: 1158px;
 }
