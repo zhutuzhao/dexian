@@ -10,7 +10,7 @@ export function requst(config) {
     (config) => {
       // 添加请求拦截器，在请求头中加token
       if (localStorage.getItem("Authorization")) {
-        config.headers.Authorization = localStorage.getItem("Authorization");
+        config.headers.token = localStorage.getItem("Authorization");
       }
       return config;
     },
