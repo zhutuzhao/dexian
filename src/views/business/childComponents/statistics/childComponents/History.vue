@@ -54,10 +54,38 @@
           >报名数</span
         >
       </div>
-      <div id="myChart" :style="{ width: '1000px', height: '300px' }"></div>
+      <div
+        id="myChart"
+        :style="{ width: '1200px', height: '300px', marginLeft: '-90px' }"
+      ></div>
     </div>
     <div class="detail">
       <div class="title">详细信息</div>
+      <div>
+        <table class="detail_table">
+          <tr>
+            <th>时间</th>
+            <th>访问数</th>
+            <th>报名数</th>
+            <th>票数</th>
+            <th></th>
+          </tr>
+          <tr v-for="i in 8" :key="i">
+            <td>2021-10-31</td>
+            <td>65</td>
+            <td>65</td>
+            <td>65</td>
+            <td></td>
+          </tr>
+        </table>
+        <div class="toPage">
+          <div class="page">
+            <span class="pageNow">1</span><span class="pageTotal">/10</span>
+          </div>
+          <input placeholder="输入页码" type="text" />
+          <button>跳至</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -75,8 +103,8 @@ require("echarts/lib/component/title");
 
 import MainTitle from "components/main_title/MainTitle.vue";
 
-import { requst } from "network/requst.js";
-import { get_activity_list, searchByTime } from "network/business/business.js";
+// import { requst } from "network/requst.js";
+// import { get_activity_list, searchByTime } from "network/business/business.js";
 
 export default {
   name: "History",
@@ -118,8 +146,8 @@ export default {
         },
       },
       isActive: "ticket",
-      seriesData: [1, 2, 3],
-      xAxisData: [10, 20, 30],
+      seriesData: [43, 32, 54, 64],
+      xAxisData: ["2021-10-31", "2021-10-31", "2021-10-31", "2021-10-31"],
     };
   },
   computed: {
@@ -173,6 +201,9 @@ export default {
           // data: ["A", "B", "C", "D", "E"],
           data: this.xAxisData,
           boundaryGap: false,
+          axisLabel: {
+            color: "#333", // x轴字体颜色
+          },
         },
         yAxis: { type: "value" },
         series: [
@@ -223,12 +254,12 @@ export default {
     //   (res) => {
     //     console.log(res);
     //     console.log(this);
-    //     this.drawLine();
+    this.drawLine();
     //   }
     // );
-    get_activity_list().then((res) => {
-      console.log(res);
-    });
+    // get_activity_list().then((res) => {
+    //   console.log(res);
+    // });
   },
 };
 </script>
@@ -267,7 +298,6 @@ export default {
   margin-left: 68px;
 }
 .detail {
-  margin-top: 66px;
   margin-left: 75px;
 }
 .trend .title,
@@ -322,12 +352,91 @@ export default {
   display: block;
   position: absolute;
   bottom: -3px;
-  /* left: 11px; */
   left: 50%;
   transform: translateX(-50%);
   width: 18px;
   height: 3px;
   background: #ff8900;
   border-radius: 2px;
+}
+.detail_table {
+  margin-top: 34px;
+  margin-left: 6px;
+  width: 1012px;
+  border-collapse: collapse;
+}
+.detail_table tr {
+  height: 48px;
+  width: 1012px;
+}
+.detail_table th {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333333;
+  background: #f5f5f5;
+}
+.detail_table tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.detail_table tr:nth-child(even) {
+  background: #ffffff;
+}
+.detail_table td {
+  text-align: center;
+}
+.detail_table td:last-child {
+  width: 500px;
+}
+.toPage {
+  position: absolute;
+  margin-top: 44px;
+  right: 67px;
+}
+.toPage .page {
+  display: inline-block;
+  /* width: 149px; */
+}
+.toPage .page::after,
+.toPage .page::before {
+  position: relative;
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border: 8px solid #333;
+}
+.toPage .page::before {
+  top: 17px;
+  right: 57px;
+  border-color: transparent #333 transparent transparent;
+}
+.toPage .page::after {
+  bottom: 17px;
+  left: 76px;
+  border-color: transparent transparent transparent #333;
+}
+.toPage input {
+  margin-left: 82px;
+  padding: 9px 13px 8px;
+  width: 90px;
+  height: 34px;
+  background: #f5f5f5;
+  border: 1px solid #999999;
+  border-radius: 4px;
+  outline: none;
+  font-size: 15px;
+  font-weight: 400;
+}
+.toPage button {
+  margin-left: 16px;
+  width: 67px;
+  height: 34px;
+  background: #ff8900;
+  border-color: #ff8900;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+  cursor: pointer;
 }
 </style>

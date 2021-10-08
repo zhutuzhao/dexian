@@ -15,14 +15,14 @@ import { requst } from "../requst.js";
 //   });
 // }
 //
-export function get_activity_list() {
-  return requst({
-    url: `/api/web_public/get_activity_list`,
-    method: "GET",
-    params: {
-      accountId: localStorage.getItem("id"),
-    //   accountId: 48,
-      status: 0,
-    },
-  });
-}
+// export function get_activity_list() {
+//   return requst({
+//     url: `/api/web_public/get_activity_list`,
+//     method: "GET",
+//     params: {
+//       accountId: localStorage.getItem("id"),
+//     //   accountId: 48,
+//       status: 0,
+//     },
+//   });
+// }
