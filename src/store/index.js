@@ -14,6 +14,7 @@ export default new Vuex.Store({
       : "",
     // 存role
     role: localStorage.getItem("role") ? localStorage.getItem("role") : "",
+    id: localStorage.getItem("id") ? localStorage.getItem("id") : "",
   },
   mutations,
   actions,

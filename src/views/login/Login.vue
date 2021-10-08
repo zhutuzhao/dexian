@@ -57,7 +57,9 @@ export default {
       this.$store.commit("changeLogin", {
         Authorization: this.res.data.data.token,
         role: this.role,
+        id: this.res.data.data.id,
       });
+      // console.log(this.res);
       this.role == "1"
         ? this.$router.push("/Business/Data_statistics")
         : this.$router.push("/Backstage/Order_statistics");
