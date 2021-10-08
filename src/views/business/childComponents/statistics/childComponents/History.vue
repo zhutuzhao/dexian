@@ -432,7 +432,7 @@ export default {
   width: 67px;
   height: 34px;
   background: #ff8900;
-  border-color: #ff8900;
+  border: none;
   border-radius: 4px;
   font-size: 16px;
   font-weight: 400;
