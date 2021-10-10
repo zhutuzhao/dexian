@@ -1,5 +1,25 @@
 import { requst } from "../requst.js";
 
+export function get_all() {
+  const formdata = new FormData();
+  formdata.append("id", localStorage.getItem("id"));
+  return requst({
+    url: `/api/web/consult/all`,
+    method: "POST",
+    data: formdata,
+  });
+}
+
+export function get_no_reply() {
+  const formdata = new FormData();
+  formdata.append("id", localStorage.getItem("id"));
+  return requst({
+    url: `/api/web/consult/no_reply`,
+    method: "POST",
+    data: formdata,
+  });
+}
+
 // export function searchByTime(startTime, endTime, pageNum, pageSize, status) {
 //   var formdata = new FormData();
 //   formdata.append("accountId", localStorage.getItem("id"));

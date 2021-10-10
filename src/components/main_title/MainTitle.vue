@@ -1,6 +1,6 @@
 <template>
   <div class="title">
-    <img src="~assets/img/Data_statistics/indice_1.png" alt="" />
+    <img src="~assets/img/business/indice_1.png" alt="" />
     <span>{{ title }}</span>
   </div>
 </template>

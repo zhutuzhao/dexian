@@ -78,13 +78,7 @@
             <td></td>
           </tr>
         </table>
-        <div class="toPage">
-          <div class="page">
-            <span class="pageNow">1</span><span class="pageTotal">/10</span>
-          </div>
-          <input placeholder="输入页码" type="text" />
-          <button>跳至</button>
-        </div>
+        <to-page />
       </div>
     </div>
   </div>
@@ -102,13 +96,14 @@ require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
 
 import MainTitle from "components/main_title/MainTitle.vue";
+import ToPage from "components/toPage/ToPage.vue";
 
 // import { requst } from "network/requst.js";
 // import { get_activity_list, searchByTime } from "network/business/business.js";
 
 export default {
   name: "History",
-  components: { MainTitle },
+  components: { MainTitle, ToPage },
   data() {
     return {
       timeDefaultShow: [],
@@ -386,57 +381,5 @@ export default {
 }
 .detail_table td:last-child {
   width: 500px;
-}
-.toPage {
-  position: absolute;
-  margin-top: 44px;
-  right: 67px;
-}
-.toPage .page {
-  display: inline-block;
-  /* width: 149px; */
-}
-.toPage .page::after,
-.toPage .page::before {
-  position: relative;
-  content: "";
-  display: block;
-  width: 0;
-  height: 0;
-  border: 8px solid #333;
-}
-.toPage .page::before {
-  top: 17px;
-  right: 57px;
-  border-color: transparent #333 transparent transparent;
-}
-.toPage .page::after {
-  bottom: 17px;
-  left: 76px;
-  border-color: transparent transparent transparent #333;
-}
-.toPage input {
-  margin-left: 82px;
-  padding: 9px 13px 8px;
-  width: 90px;
-  height: 34px;
-  background: #f5f5f5;
-  border: 1px solid #999999;
-  border-radius: 4px;
-  outline: none;
-  font-size: 15px;
-  font-weight: 400;
-}
-.toPage button {
-  margin-left: 16px;
-  width: 67px;
-  height: 34px;
-  background: #ff8900;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: 400;
-  color: #ffffff;
-  cursor: pointer;
 }
 </style>
