@@ -1,8 +1,10 @@
 <template>
   <div class="toPage">
     <div class="page">
-      <span class="pageNow">{{ pageNow }}</span
-      ><span class="pageTotal">/{{ pageTotal }}</span>
+      <span class="before" @click="before()"></span
+      ><span class="pageNow">{{ pageNow }}</span
+      ><span class="pageTotal">/{{ compute_pageTotal }}</span
+      ><span class="after" @click="after()"></span>
     </div>
     <input ref="page_input" placeholder="输入页码" type="number" />
     <button @click="toPageClick">跳至</button>
@@ -22,6 +24,11 @@ export default {
       default: 1,
     },
   },
+  computed: {
+    compute_pageTotal() {
+      return this.pageTotal < 1 ? 1 : Math.round(this.pageTotal);
+    },
+  },
   methods: {
     toPageClick() {
       let pageInput = Number.parseInt(this.$refs.page_input.value);
@@ -34,6 +41,16 @@ export default {
         this.$emit("toPageClick", pageInput);
       }
       this.$refs.page_input.value = "";
+    },
+    before() {
+      if (this.pageNow > 1) {
+        this.$emit("before", this.pageNow - 1);
+      }
+    },
+    after() {
+      if (this.pageNow < this.pageTotal) {
+        this.$emit("after", this.pageNow - -1);
+      }
     },
   },
 };
@@ -48,24 +65,23 @@ export default {
 .toPage .page {
   display: inline-block;
 }
-.toPage .page::after,
-.toPage .page::before {
+.toPage .page .after,
+.toPage .page .before {
   position: relative;
-  content: "";
   display: block;
   width: 0;
   height: 0;
   border: 8px solid #333;
   cursor: pointer;
 }
-.toPage .page::before {
+.toPage .page .before {
   top: 17px;
   right: 57px;
   border-color: transparent #333 transparent transparent;
 }
-.toPage .page::after {
+.toPage .page .after {
   bottom: 17px;
-  left: 76px;
+  left: 65px;
   border-color: transparent transparent transparent #333;
 }
 .toPage input {

@@ -18,7 +18,13 @@
       </button>
     </div>
     <div class="consult">
-      <div v-for="item in showNow" :key="item.id" class="consult-item">
+      <div
+        v-for="item in showNow"
+        :key="item.id"
+        class="consult-item"
+        :consult_id="item.id"
+        :index="item.index"
+      >
         <div class="activity_name">
           <span>活动</span>
           <span>{{ item.activityName }}</span>
@@ -33,7 +39,8 @@
             <span class="item">{{ item.reply }}</span>
           </div>
           <div class="option">
-            <span class="reply">回复</span><span class="delete">删除</span>
+            <span class="reply">回复</span
+            ><span class="delete" @click="delete_consult">删除</span>
           </div>
           <div class="show">
             <span>显示</span
@@ -41,18 +48,35 @@
               v-if="item.show"
               src="~assets/img/business/show_on_1.png"
               alt=""
-            /><img v-else src="~assets/img/business/show_off_1.png" alt="" />
+              @click="showClick"
+            /><img
+              v-else
+              src="~assets/img/business/show_off_1.png"
+              alt=""
+              @click="showClick"
+            />
           </div>
         </div>
       </div>
     </div>
-    <to-page :pageTotal="pageTotal" :pageNow="pageNow" @toPageClick="toPage" />
+    <to-page
+      :pageTotal="pageTotal"
+      :pageNow="pageNow"
+      @toPageClick="toPage"
+      @before="toPage"
+      @after="toPage"
+    />
   </div>
 </template>
 <script>
 import ToPage from "components/toPage/ToPage.vue";
 
-import { get_all, get_no_reply } from "network/business/business.js";
+import {
+  get_all,
+  get_no_reply,
+  show_consult,
+  delete_consult,
+} from "network/business/business.js";
 
 export default {
   components: { ToPage },
@@ -80,7 +104,10 @@ export default {
         if (this.flag_get_all) {
           //所有咨询是否已经请求过了
           get_all().then((res) => {
-            this.all_consult = res.data.data;
+            this.all_consult = res.data.data.map((item, index) => {
+              item.index = index;
+              return item;
+            });
             this.showNow = this.all_consult.slice(0, 2);
             this.pageTotal_all = this.pageTotal =
               this.all_consult.length / this.showNum;
@@ -100,20 +127,66 @@ export default {
     toPage(pageInput) {
       this.pageNow = pageInput;
       this.isActive == "noReply"
-        ? (this.showNow = this.no_reply_consult.slice(
-            (pageInput - 1) * this.showNum,
-            (pageInput - 1) * this.showNum - -2
-          ))
-        : (this.showNow = this.all_consult.slice(
-            (pageInput - 1) * this.showNum,
-            (pageInput - 1) * this.showNum - -2
-          ));
+        ? (this.showNow = this.no_reply_consult
+            .map((item, index) => {
+              item.index = index;
+              return item;
+            })
+            .slice(
+              (pageInput - 1) * this.showNum,
+              (pageInput - 1) * this.showNum - -2
+            ))
+        : (this.showNow = this.all_consult
+            .map((item, index) => {
+              item.index = index;
+              return item;
+            })
+            .slice(
+              (pageInput - 1) * this.showNum,
+              (pageInput - 1) * this.showNum - -2
+            ));
+    },
+    showClick(e) {
+      //是否展示该条咨询
+      let consult_id = e.path[3].attributes.consult_id.nodeValue;
+      show_consult(consult_id).then((res) => {
+        let index = e.path[3].attributes.index.nodeValue;
+        if (this.isActive == "noReply") {
+          this.no_reply_consult[index].show =
+            this.no_reply_consult[index].show == 1 ? 0 : 1;
+        } else {
+          this.all_consult[index].show =
+            this.all_consult[index].show == 1 ? 0 : 1;
+        }
+      });
+    },
+    delete_consult(e) {
+      let consult_id = e.path[3].attributes.consult_id.nodeValue;
+      let index = e.path[3].attributes.index.nodeValue;
+      delete_consult(consult_id).then((res) => {
+        console.log(res);
+        if (!res) return;
+        if (this.isActive == "noReply") {
+          this.no_reply_consult.splice(index, 1);
+          this.toPage(this.pageNow);
+          this.pageTotal_no_reply = this.pageTotal =
+            this.no_reply_consult.length / this.showNum;
+        } else {
+          this.all_consult.splice(index, 1);
+          this.toPage(this.pageNow);
+          this.pageTotal_all = this.pageTotal =
+            this.all_consult.length / this.showNum;
+        }
+      });
     },
   },
   mounted() {
     get_no_reply().then((res) => {
       //请求未回复的咨询
-      this.no_reply_consult = res.data.data;
+      this.no_reply_consult = res.data.data.map((item, index) => {
+        item.index = index;
+        return item;
+      });
       this.showNow = this.no_reply_consult.slice(0, 2);
       this.pageTotal_no_reply = this.pageTotal =
         this.no_reply_consult.length / this.showNum;

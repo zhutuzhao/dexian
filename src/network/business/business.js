@@ -20,6 +20,26 @@ export function get_no_reply() {
   });
 }
 
+export function show_consult(consult_id) {
+  return requst({
+    url: `/api/web/consult/show`,
+    method: "GET",
+    params: {
+      id: parseInt(consult_id),
+    },
+  });
+}
+
+export function delete_consult(consult_id) {
+  const formdata = new FormData();
+  formdata.append("id", localStorage.getItem("id"));
+  formdata.append("consultId", consult_id);
+  return requst({
+    url: `/api/web/consult/delete`,
+    method: "POST",
+    data: formdata,
+  });
+}
 // export function searchByTime(startTime, endTime, pageNum, pageSize, status) {
 //   var formdata = new FormData();
 //   formdata.append("accountId", localStorage.getItem("id"));
