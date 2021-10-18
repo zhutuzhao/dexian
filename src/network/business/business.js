@@ -69,3 +69,75 @@ export function reply_consult(consultId, reply) {
     data: formdata,
   });
 }
+
+export function get_user_info() {
+  //获取用户信息
+  return requst({
+    url: `/api/web/right/edit`,
+    method: "GET",
+    params: {
+      id: localStorage.getItem("id"),
+      role: localStorage.getItem("role"),
+    },
+  });
+}
+
+export function change_user_info(userInfo) {
+  //改变用户信息
+  const formdata = new FormData();
+  let {
+    companyPhone,
+    companyName,
+    companyIntroduction,
+    linkman,
+    phone,
+  } = userInfo;
+  formdata.append("id", localStorage.getItem("id"));
+  formdata.append("companyPhone", companyPhone);
+  formdata.append("companyName", companyName);
+  formdata.append("companyIntroduction", companyIntroduction);
+  formdata.append("linkman", linkman);
+  formdata.append("phone", phone);
+  return requst({
+    url: `/api/web/right/save`,
+    method: "POST",
+    data: formdata,
+  });
+}
+
+export function change_user_psw(prePassword, sufPassword) {
+  //改变用户密码
+  const formdata = new FormData();
+  formdata.append("account", localStorage.getItem("account"));
+  formdata.append("prePassword", prePassword);
+  formdata.append("sufPassword", sufPassword);
+  return requst({
+    url: `/api/web/right/password`,
+    method: "POST",
+    data: formdata,
+  });
+}
+
+export function upload_picture(file) {
+  //上传商家logo
+  const formdata = new FormData();
+  formdata.append("file", file);
+  formdata.append("id", localStorage.getItem("id"));
+  return requst({
+    url: `/api/web/right/picture`,
+    method: "POST",
+    data: formdata,
+  });
+}
+
+export function get_activity_list(status) {
+  //获取活动列表
+  return requst({
+    url: `/api/web_public/get_activity_list`,
+    method: "GET",
+    params: {
+      accountId: localStorage.getItem("id"),
+      status: status,
+    },
+  });
+}

@@ -1,0 +1,64 @@
+.Account_settings > .wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 99999;
+}
+.changeInfoBox .title,
+.changePswBox .title {
+  margin: 22px 0 64px 50px;
+  height: 18px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333333;
+}
+.changeInfoBox .title::after,
+.changePswBox .title::after {
+  position: relative;
+  top: 20px;
+  left: -29px;
+  content: "";
+  display: block;
+  width: 962px;
+  height: 2px;
+  background: #dddddd;
+}
+.changeInfoBox .content span,
+.changePswBox .content span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #333333;
+}
+.changeInfoBox .content input,
+.changePswBox .content input {
+  margin-left: 6px;
+  margin-bottom: 40px;
+  padding: 8px 0 9px 10px;
+  width: 270px;
+  height: 34px;
+  border: 1px solid #999999;
+  border-radius: 6px;
+  outline: none;
+}
+.changeInfoBox .content button,
+.changePswBox .content button {
+  margin-left: 292px;
+  width: 82px;
+  height: 38px;
+  border: none;
+  background: #999999;
+  border-radius: 4px;
+  outline: none;
+  font-size: 22px;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #ffffff;
+  cursor: pointer;
+}
+.changeInfoBox .content button:last-child,
+.changePswBox .content button:last-child {
+  margin-left: 56px;
+  background: #ff7000;
+}

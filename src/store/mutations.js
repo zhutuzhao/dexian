@@ -5,8 +5,10 @@ export default {
     state.Authorization = user.Authorization;
     state.role = user.role;
     state.id = user.id;
+    state.account = user.account;
     localStorage.setItem("Authorization", user.Authorization);
     localStorage.setItem("role", user.role);
     localStorage.setItem("id", user.id);
+    localStorage.setItem("account", user.account);
   },
 };

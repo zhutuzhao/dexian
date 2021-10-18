@@ -58,6 +58,7 @@ export default {
         Authorization: this.res.data.data.token,
         role: this.role,
         id: this.res.data.data.id,
+        account: this.account,
       });
       // console.log(this.res);
       this.role == "1"
