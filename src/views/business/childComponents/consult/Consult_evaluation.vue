@@ -280,7 +280,7 @@ export default {
         })
         .slice(
           (this.pageNow - 1) * this.showNum,
-          (this.pageNow - 1) * this.showNum - -2
+          (this.pageNow - 1) * this.showNum - -this.showNum
         );
     },
   },

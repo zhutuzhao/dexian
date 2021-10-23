@@ -141,3 +141,50 @@ export function get_activity_list(status) {
     },
   });
 }
+
+export function modify_activity_status(activityId) {
+  //获取活动列表
+  return requst({
+    url: `/api/web_public/modify_activity_status/${activityId}`,
+    method: "PUT",
+  });
+}
+
+export function delete_activity(activityId) {
+  //删除活动
+  return requst({
+    url: `/api/web_public/delete_activity/${activityId}`,
+    method: "DELETE",
+  });
+}
+
+export function search_by_name(pageNum, pageSize, status, content) {
+  //根据名字搜索
+  const formdata = new FormData();
+  formdata.append("pageNum", pageNum);
+  formdata.append("pageSize", pageSize);
+  formdata.append("status", status);
+  formdata.append("content", content);
+  formdata.append("accountId", localStorage.getItem("id"));
+  return requst({
+    url: `/api/web_public/search_by_name`,
+    method: "POST",
+    data: formdata,
+  });
+}
+
+export function search_by_time(pageNum, pageSize, status, startTime, endTime) {
+  //根据名字搜索
+  const formdata = new FormData();
+  formdata.append("pageNum", pageNum);
+  formdata.append("pageSize", pageSize);
+  formdata.append("status", status);
+  formdata.append("startTime", startTime);
+  formdata.append("endTime", endTime);
+  formdata.append("accountId", localStorage.getItem("id"));
+  return requst({
+    url: `/api/web_public/search_by_time`,
+    method: "POST",
+    data: formdata,
+  });
+}

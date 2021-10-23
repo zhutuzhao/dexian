@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     compute_pageTotal() {
-      return this.pageTotal < 1 ? 1 : Math.round(this.pageTotal);
+      return this.pageTotal < 1 ? 1 : Math.ceil(this.pageTotal);
     },
   },
   methods: {
@@ -36,7 +36,7 @@ export default {
         pageInput &&
         pageInput > 0 &&
         pageInput != this.pageNow &&
-        pageInput <= this.pageTotal
+        pageInput <= this.compute_pageTotal
       ) {
         this.$emit("toPageClick", pageInput);
       }
