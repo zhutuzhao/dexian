@@ -188,3 +188,32 @@ export function search_by_time(pageNum, pageSize, status, startTime, endTime) {
     data: formdata,
   });
 }
+
+export function get_activity_details(activityId, pageNum) {
+  //获取活动详情（包括报名表）
+  return requst({
+    url: `/api/web_public/get_activity_details/${activityId}/${pageNum}`,
+    method: "GET",
+  });
+}
+
+export function register_cancel(orderId) {
+  //订单退款/退回报名表
+  return requst({
+    url: `/api/web_public/order/confirmCancel/${orderId}`,
+    method: "DELETE",
+  });
+}
+
+export function downloadTable() {
+  //打印表格(导出订单信息为excel)
+  let accountId = localStorage.getItem("id");
+  return requst({
+    url: `/api/merchant/order/export/${accountId}`,
+    method: "GET",
+    headers: {
+      responseType: "blob",
+      // responseType: "arraybuffer",
+    },
+  });
+}

@@ -1,19 +1,27 @@
 <template>
   <div class="Activity_manage_bs main_item">
-    <main-title title="活动管理" />
-    <activity-list
-      :showNow="showNow"
-      :status="status"
-      @deleteActivity="deleteActivity"
-      @searchActivitys="searchActivitys"
+    <div v-if="this.$route.path == '/Business/Activity_manage_bs'">
+      <main-title title="活动管理" />
+      <activity-list
+        :showNow="showNow"
+        :status="status"
+        @deleteActivity="deleteActivity"
+        @searchActivitys="searchActivitys"
+      />
+      <to-page
+        :pageTotal="pageTotal"
+        :pageNow="pageNow"
+        @toPageClick="toPage"
+        @before="toPage"
+        @after="toPage"
+      />
+    </div>
+    <add-activity
+      v-else-if="
+        this.$route.path == '/Business/Activity_manage_bs/Add_activity'
+      "
     />
-    <to-page
-      :pageTotal="pageTotal"
-      :pageNow="pageNow"
-      @toPageClick="toPage"
-      @before="toPage"
-      @after="toPage"
-    />
+    <activity-info v-else />
   </div>
 </template>
 <script>
@@ -26,12 +34,15 @@ import {
   search_by_name,
   search_by_time,
 } from "network/business/business.js";
+import AddActivity from "./activityChild/AddActivity.vue";
+import ActivityInfo from "./activityChild/ActivityInfo.vue";
 
 export default {
   name: "Activity_manage_bs",
-  components: { MainTitle, ToPage, ActivityList },
+  components: { MainTitle, ToPage, ActivityList, AddActivity, ActivityInfo },
   data() {
     return {
+      // position: "list",
       status: 0,
       upActivity: [],
       downActivity: [],

@@ -16,9 +16,17 @@ const Account_settings = () =>
   import("views/business/childComponents/settings/Account_settings.vue");
 const Data_statistics = () =>
   import("views/business/childComponents/statistics/Data_statistics.vue");
+const Add_activity = () =>
+  import("views/business/childComponents/manage/activityChild/AddActivity.vue");
+const Activity_info = () =>
+  import(
+    "views/business/childComponents/manage/activityChild/ActivityInfo.vue"
+  );
 // backstage
 const Aftermarket_feedback = () =>
-  import("views/backstage/childComponents/aftermarket/Aftermarket_feedback.vue");
+  import(
+    "views/backstage/childComponents/aftermarket/Aftermarket_feedback.vue"
+  );
 const User_manage = () =>
   import("views/backstage/childComponents/manage/User_manage.vue");
 const Front_manage = () =>
@@ -60,6 +68,18 @@ const routes = [
         path: "Activity_manage_bs",
         name: "Activity_manage_bs",
         component: Activity_manage_bs,
+        children: [
+          {
+            path: "Add_activity",
+            name: "Add_activity",
+            component: Add_activity,
+          },
+          {
+            path: "Activity_info/:activityId",
+            name: "Activity_info",
+            component: Activity_info,
+          },
+        ],
       },
       {
         path: "Account_settings",
@@ -71,6 +91,11 @@ const routes = [
         name: "Data_statistics",
         component: Data_statistics,
       },
+      // {
+      //   path: "Add_activity",
+      //   name: "Add_activity",
+      //   component: Add_activity,
+      // },
     ],
   },
   {
@@ -133,10 +158,15 @@ router.beforeEach((to, from, next) => {
     if (token === null || token === "") {
       next("/Login");
     } else {
-      if (role == "1") {//判断登录者信息，如果商家就不能访问后台界面
-        to.path.indexOf("/Business") == -1 ? next("/Business/Data_statistics") : next();
+      if (role == "1") {
+        //判断登录者信息，如果商家就不能访问后台界面
+        to.path.indexOf("/Business") == -1
+          ? next("/Business/Data_statistics")
+          : next();
       } else {
-        to.path.indexOf("/Backstage") == -1 ? next("/Backstage/Order_statistics") : next();
+        to.path.indexOf("/Backstage") == -1
+          ? next("/Backstage/Order_statistics")
+          : next();
       }
     }
   }

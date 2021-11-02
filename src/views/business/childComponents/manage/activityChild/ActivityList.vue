@@ -32,7 +32,8 @@
           <option value="10">10</option>
         </select>
       </div>
-      <button @click="searchActivity">搜索</button><button>新增</button>
+      <button @click="searchActivity">搜索</button
+      ><button @click="addActivity">新增</button>
     </div>
     <table class="body">
       <tr>
@@ -71,7 +72,9 @@
           <div class="clear-fix">
             <div class="left">
               <div class="change">修改</div>
-              <div class="check">查看</div>
+              <div class="check" @click="checkDetail(item.activityId)">
+                查看
+              </div>
             </div>
             <div class="left">
               <div class="delete" @click="deleteActivity(item.activityId)">
@@ -169,6 +172,13 @@ export default {
         this.$emit("searchActivitys", "none");
       }
       this.activityName = this.startvalue = "";
+    },
+    addActivity() {
+      this.$router.push("/Business/Activity_manage_bs/Add_activity");
+    },
+    checkDetail(id) {
+      // console.log(id);
+      this.$router.push("/Business/Activity_manage_bs/Activity_info/" + id);
     },
   },
   watch: {
