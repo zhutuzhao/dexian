@@ -174,7 +174,7 @@ export function search_by_name(pageNum, pageSize, status, content) {
 }
 
 export function search_by_time(pageNum, pageSize, status, startTime, endTime) {
-  //根据名字搜索
+  //根据时间搜索
   const formdata = new FormData();
   formdata.append("pageNum", pageNum);
   formdata.append("pageSize", pageSize);
@@ -215,5 +215,31 @@ export function downloadTable() {
       responseType: "blob",
       // responseType: "arraybuffer",
     },
+  });
+}
+
+export function add_activity(data) {
+  //新增活动
+  return requst({
+    url: `/api/merchant/activity/add_activity`,
+    method: "POST",
+    data,
+  });
+}
+
+export function get_actInfo(activityId) {
+  //修改活动时获取活动的所有信息
+  return requst({
+    url: `/api/merchant/activity/actInfo/${activityId}`,
+    method: "GET",
+  });
+}
+
+export function add_activity_draft(data) {
+  //添加活动为草稿
+  return requst({
+    url: `/api/merchant/activity/add_activity_draft`,
+    method: "POST",
+    data,
   });
 }

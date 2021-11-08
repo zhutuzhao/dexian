@@ -4,106 +4,165 @@
     <div class="requiredBox">
       <img src="~assets/img/business/optional_1.png" /><span>必填</span
       ><span>姓名：</span
-      ><el-input class="required" placeholder="请输入"></el-input>
+      ><el-input
+        class="required"
+        placeholder="请输入"
+        :disabled="true"
+      ></el-input>
     </div>
     <div class="requiredBox">
       <img src="~assets/img/business/optional_1.png" /><span>必填</span
       ><span>电话：</span
-      ><el-input class="required" placeholder="请输入"></el-input>
+      ><el-input
+        class="required"
+        placeholder="请输入"
+        :disabled="true"
+      ></el-input>
     </div>
     <div class="requiredBox">
       <img src="~assets/img/business/optional_1.png" /><span>必填</span
-      ><span>性别：</span><el-radio v-model="xxx" label="男">男</el-radio>
-      <el-radio v-model="xxx" label="女">女</el-radio>
+      ><span>性别：</span><el-radio label="男" :disabled="true">男</el-radio>
+      <el-radio label="女" :disabled="true">女</el-radio>
     </div>
     <div class="requiredBox">
       <img src="~assets/img/business/optional_1.png" /><span>必填</span
       ><span>学校：</span
-      ><el-input class="required" placeholder="请输入"></el-input>
+      ><el-input
+        class="required"
+        placeholder="请输入"
+        :disabled="true"
+      ></el-input>
     </div>
     <el-form class="requiredBox formBox">
-      <el-form-item class="formItem singleLine"
-        ><img src="~assets/img/business/option_selected_1.png" /><span
-          >选填</span
-        >
-        <el-input class="form_input" placeholder="单行标题"></el-input><br />
-        <el-input class="form_input" placeholder="单行输入"></el-input>
+      <el-form-item
+        v-for="(item, index) in singleLine"
+        :key="index + ' ' + item.propertyType"
+        class="formItem singleLine"
+        ><img
+          v-if="item.isOptional == 0"
+          src="~assets/img/business/option_selected_1.png"
+          @click="changeOptional(item)"
+        /><span v-else class="optional_img" @click="changeOptional(item)"></span
+        ><span v-if="item.isOptional == 0">必填</span><span v-else>选填</span>
+        <el-input
+          class="form_input"
+          placeholder="单行标题"
+          v-model="item.property"
+        ></el-input
+        ><br />
+        <el-input
+          class="form_input"
+          placeholder="单行输入"
+          :disabled="true"
+        ></el-input>
       </el-form-item>
-      <el-form-item class="formItem multiline"
-        ><img src="~assets/img/business/option_selected_1.png" /><span
-          >选填</span
-        >
-        <el-input class="form_input" placeholder="多行标题"></el-input><br />
+      <el-form-item
+        v-for="(item, index) in multiline"
+        :key="index + ' ' + item.propertyType"
+        class="formItem multiline"
+        ><img
+          v-if="item.isOptional == 0"
+          src="~assets/img/business/option_selected_1.png"
+          @click="changeOptional(item)"
+        /><span v-else class="optional_img" @click="changeOptional(item)"></span
+        ><span v-if="item.isOptional == 0">必填</span><span v-else>选填</span>
+        <el-input
+          class="form_input"
+          placeholder="多行标题"
+          v-model="item.property"
+        ></el-input
+        ><br />
         <el-input
           class="form_input"
           type="textarea"
           placeholder="多行输入"
+          :disabled="true"
         ></el-input>
       </el-form-item>
-      <el-form-item class="formItem singleChoice"
-        ><img src="~assets/img/business/option_selected_1.png" /><span
-          >选填</span
-        >
-        <el-input class="form_input" placeholder="单项选择标题"></el-input>
+      <el-form-item
+        v-for="(item, index) in singleChoice"
+        :key="index + ' ' + item.propertyType"
+        class="formItem singleChoice"
+        ><img
+          v-if="item.isOptional == 0"
+          src="~assets/img/business/option_selected_1.png"
+          @click="changeOptional(item)"
+        /><span v-else class="optional_img" @click="changeOptional(item)"></span
+        ><span v-if="item.isOptional == 0">必填</span><span v-else>选填</span>
+        <el-input
+          class="form_input"
+          placeholder="单项选择标题"
+          v-model="item.property"
+        ></el-input>
         <div class="choices">
           <el-tag
+            v-for="(tag, index) in item.content"
             :key="tag"
-            v-for="tag in dynamicTags"
             closable
             :disable-transitions="false"
-            @close="handleClose(tag)"
+            @close="handleClose(item.content, index)"
           >
             {{ tag }}
           </el-tag>
           <el-input
             class="input-new-tag"
-            v-if="inputVisible"
-            v-model="inputValue"
-            ref="saveTagInput"
+            v-if="inputVisible_singleChoice[index]"
+            v-model="inputValue_singleChoice[index]"
+            :ref="'saveTagInput_singleChoice' + index"
             size="small"
-            @keyup.enter.native="handleInputConfirm"
-            @blur="handleInputConfirm"
+            @keyup.enter.native="
+              handleInputConfirm_singleChoice(item.content, index)
+            "
           >
           </el-input
           ><img
             v-else
             class="button-new-tag"
-            size="small"
-            @click="showInput"
+            @click="showInput_singleChoice(index)"
             src="~assets/img/business/add_input_1.png"
           />
         </div>
       </el-form-item>
-      <el-form-item class="formItem singleChoice"
-        ><img src="~assets/img/business/option_selected_1.png" /><span
-          >选填</span
-        >
-        <el-input class="form_input" placeholder="多项选择标题"></el-input>
+      <el-form-item
+        v-for="(item, index) in multiChoice"
+        :key="index + ' ' + item.propertyType"
+        class="formItem multiChoice"
+        ><img
+          v-if="item.isOptional == 0"
+          src="~assets/img/business/option_selected_1.png"
+          @click="changeOptional(item)"
+        /><span v-else class="optional_img" @click="changeOptional(item)"></span
+        ><span v-if="item.isOptional == 0">必填</span><span v-else>选填</span>
+        <el-input
+          class="form_input"
+          placeholder="多项选择标题"
+          v-model="item.property"
+        ></el-input>
         <div class="choices">
           <el-tag
+            v-for="(tag, index) in item.content"
             :key="tag"
-            v-for="tag in dynamicTags"
             closable
             :disable-transitions="false"
-            @close="handleClose(tag)"
+            @close="handleClose(item.content, index)"
           >
             {{ tag }}
           </el-tag>
           <el-input
             class="input-new-tag"
-            v-if="inputVisible"
-            v-model="inputValue"
-            ref="saveTagInput"
+            v-if="inputVisible_multiChoice[index]"
+            v-model="inputValue_multiChoice[index]"
+            :ref="'saveTagInput_multiChoice' + index"
             size="small"
-            @keyup.enter.native="handleInputConfirm"
-            @blur="handleInputConfirm"
+            @keyup.enter.native="
+              handleInputConfirm_multiChoice(item.content, index)
+            "
           >
           </el-input
           ><img
             v-else
             class="button-new-tag"
-            size="small"
-            @click="showInput"
+            @click="showInput_multiChoice(index)"
             src="~assets/img/business/add_input_1.png"
           />
         </div>
@@ -124,12 +183,12 @@
       </div>
       <div class="title">自定义项</div>
       <div class="userDefined">
-        <div>单行文本框</div>
-        <div>多行文本框</div>
+        <div @click="add_singleLine">单行文本框</div>
+        <div @click="add_multiline">多行文本框</div>
       </div>
       <div class="userDefined">
-        <div>单项选择框</div>
-        <div>多项选择框</div>
+        <div @click="add_singleChoice">单项选择框</div>
+        <div @click="add_multiChoice">多项选择框</div>
       </div>
     </div>
   </div>
@@ -140,31 +199,122 @@ export default {
   name: "BaseInfo",
   data() {
     return {
-      xxx: "男",
-      dynamicTags: [],
-      inputVisible: false,
-      inputValue: "",
+      inputVisible_singleChoice: [],
+      inputValue_singleChoice: [],
+      inputVisible_multiChoice: [],
+      inputValue_multiChoice: [],
+      singleLine: [
+        // {
+        //   isOptional: 0,
+        //   property: "单行选项名",
+        //   content: [],
+        //   propertyType: 0,
+        // },
+      ],
+      multiline: [
+        // {
+        //   isOptional: 0,
+        //   property: "多行选项名",
+        //   content: [],
+        //   propertyType: 1,
+        // },
+      ],
+      singleChoice: [
+        // {
+        //   isOptional: 0,
+        //   property: "单项选项名",
+        //   content: [],
+        //   propertyType: 2,
+        // },
+      ],
+      multiChoice: [
+        // {
+        //   isOptional: 0,
+        //   property: "多项选项名",
+        //   content: [],
+        //   propertyType: 3,
+        // },
+      ],
     };
   },
   methods: {
-    handleClose(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+    handleClose(content, index) {
+      content.splice(index, 1);
     },
-
-    showInput() {
-      this.inputVisible = true;
-      this.$nextTick((_) => {
-        this.$refs.saveTagInput.$refs.input.focus();
+    showInput_singleChoice(index) {
+      console.log(this);
+      console.log(index);
+      let name_ref = "saveTagInput_singleChoice" + index;
+      this.inputVisible_singleChoice.splice(index, 1, true);
+      this.$nextTick(() => {
+        console.log(this);
+        this.$refs[name_ref][0].$refs.input.focus();
       });
     },
-
-    handleInputConfirm() {
-      let inputValue = this.inputValue;
+    showInput_multiChoice(index) {
+      let name_ref = "saveTagInput_multiChoice" + index;
+      console.log(index);
+      this.inputVisible_multiChoice.splice(index, 1, true);
+      this.$nextTick(() => {
+        this.$refs[name_ref][0].$refs.input.focus();
+      });
+    },
+    handleInputConfirm_singleChoice(content, index) {
+      let inputValue = this.inputValue_singleChoice[index];
       if (inputValue) {
-        this.dynamicTags.push(inputValue);
+        content.push(inputValue);
       }
-      this.inputVisible = false;
-      this.inputValue = "";
+      this.inputVisible_singleChoice[index] = false;
+      this.inputValue_singleChoice[index] = "";
+    },
+    handleInputConfirm_multiChoice(content, index) {
+      let inputValue = this.inputValue_multiChoice[index];
+      if (inputValue) {
+        content.push(inputValue);
+      }
+      this.inputVisible_multiChoice[index] = false;
+      this.inputValue_multiChoice[index] = "";
+    },
+    changeOptional(item) {
+      item.isOptional = item.isOptional == 0 ? 1 : 0;
+    },
+    add_singleLine() {
+      // console.log("12");
+      this.singleLine.push({
+        isOptional: 0,
+        property: "单行选项名",
+        content: [],
+        propertyType: 0,
+      });
+    },
+    add_multiline() {
+      // console.log("12");
+      this.multiline.push({
+        isOptional: 0,
+        property: "多行选项名",
+        content: [],
+        propertyType: 1,
+      });
+    },
+    add_singleChoice() {
+      this.singleChoice.push({
+        isOptional: 0,
+        property: "单项选项名",
+        content: [],
+        propertyType: 2,
+      });
+      this.inputVisible_singleChoice.push(false);
+      this.inputValue_singleChoice.push("");
+    },
+    add_multiChoice() {
+      this.multiChoice.push({
+        isOptional: 0,
+        property: "多项选项名",
+        content: [],
+        propertyType: 3,
+      });
+      this.inputVisible_multiChoice.push(false);
+      this.inputValue_multiChoice.push("");
     },
   },
 };
@@ -174,7 +324,7 @@ export default {
 .BaseInfo {
   padding-top: 30px;
   position: relative;
-  min-height: 450px;
+  min-height: 650px;
 }
 .BaseInfo::before {
   position: absolute;
@@ -190,6 +340,7 @@ export default {
   margin-bottom: 32px;
 }
 .requiredBox {
+  width: 45%;
   margin-left: 100px;
   margin-bottom: 20px;
 }
@@ -199,6 +350,16 @@ export default {
 }
 .requiredBox img {
   height: 22px;
+  vertical-align: middle;
+}
+.optional_img {
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #666666;
+  border-radius: 4px;
   vertical-align: middle;
 }
 .required {
@@ -248,7 +409,6 @@ export default {
   left: 615px;
   width: 433px;
   height: 525px;
-  /* background: #ffffff; */
   border: 1px solid #999999;
   border-radius: 10px;
 }
@@ -280,5 +440,4 @@ export default {
   color: #ffffff;
   cursor: pointer;
 }
-/*  */
 </style>

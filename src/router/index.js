@@ -70,6 +70,11 @@ const routes = [
         component: Activity_manage_bs,
         children: [
           {
+            path: "Update_activity/:activityId",
+            name: "Update_activity",
+            component: Add_activity,
+          },
+          {
             path: "Add_activity",
             name: "Add_activity",
             component: Add_activity,

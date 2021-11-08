@@ -11,6 +11,10 @@
           <span>新的密码</span>
           <input ref="new" v-model="newPsw" type="password" />
         </div>
+        <div class="new">
+          <span>确定密码</span>
+          <input v-model="newPsw_again" type="password" />
+        </div>
         <button @click="closeChangePsw">取消</button
         ><button :disabled="!(prePsw && newPsw)" @click="changeUserPsw">
           确定
@@ -28,11 +32,16 @@ export default {
     return {
       prePsw: "",
       newPsw: "",
+      newPsw_again: "",
       isOnChangePsw: 0,
     };
   },
   methods: {
     changeUserPsw() {
+      if (this.newPsw != this.newPsw_again) {
+        alert("密码前后不一致");
+        return;
+      }
       change_user_psw(this.prePsw, this.newPsw).then((res) => {
         console.log(res.data.msg);
         if (res.data.msg == "success") {

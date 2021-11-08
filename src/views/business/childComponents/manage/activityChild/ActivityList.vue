@@ -71,7 +71,7 @@
         <td class="option">
           <div class="clear-fix">
             <div class="left">
-              <div class="change">修改</div>
+              <div class="change" @click="change(item.activityId)">修改</div>
               <div class="check" @click="checkDetail(item.activityId)">
                 查看
               </div>
@@ -179,6 +179,10 @@ export default {
     checkDetail(id) {
       // console.log(id);
       this.$router.push("/Business/Activity_manage_bs/Activity_info/" + id);
+    },
+    change(id) {
+      // console.log(id);
+      this.$router.push("/Business/Activity_manage_bs/Update_activity/" + id);
     },
   },
   watch: {

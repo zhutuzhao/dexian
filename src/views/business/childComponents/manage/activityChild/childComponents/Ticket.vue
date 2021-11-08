@@ -2,9 +2,9 @@
   <div class="Ticket">
     <div class="title">票种消息：</div>
     <div>
-      <el-button class="free_ticket"
+      <el-button class="free_ticket" @click="free_ticket"
         ><img src="~assets/img/business/add_1.png" /> 免费票</el-button
-      ><el-button class="pay_ticket"
+      ><el-button class="pay_ticket" @click="pay_ticket"
         ><img src="~assets/img/business/add_1.png" /> 付费票</el-button
       >
     </div>
@@ -18,20 +18,38 @@
         <th>退款设置<img src="~assets/img/business/refund_1.png" alt="" /></th>
         <th>操作</th>
       </tr>
-      <tr>
-        <td class="ticket_index"><div>1</div></td>
-        <td>免费票</td>
+      <tr
+        v-for="(item, index) in ticketList"
+        :key="item.ticketType + ' ' + index"
+      >
+        <td class="ticket_index">
+          <div>{{ index - -1 }}</div>
+        </td>
+        <td>{{ item.ticketType == 0 ? "免费票" : "付费票" }}</td>
         <td>
-          <el-input class="ticket_name" placeholder="例：正式票"></el-input>
+          <el-input
+            class="ticket_name"
+            placeholder="例：正式票"
+            v-model="item.ticketName"
+          ></el-input>
         </td>
         <td>
-          <el-input class="ticket_price"></el-input>
+          <el-input
+            v-if="item.ticketType == 1"
+            class="ticket_price"
+            v-model="item.ticketPrice"
+          ></el-input>
+          <div class="ticket_price" v-else>不可选</div>
         </td>
         <td>
-          <el-input class="ticket_num"></el-input>
+          <el-input class="ticket_num" v-model="item.ticketNumber"></el-input>
         </td>
         <td>
-          <el-select class="refund" v-model="refund_value" placeholder="请选择">
+          <el-select
+            class="refund"
+            v-model="item.ticketRefundType"
+            placeholder="请选择"
+          >
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -41,23 +59,52 @@
             </el-option>
           </el-select>
         </td>
-        <td class="refund_option"><span class="delete">删除</span></td>
+        <td class="option">
+          <span class="delete" @click="delete_ticket(index)">删除</span>
+        </td>
       </tr>
     </table>
   </div>
 </template>
-
 <script>
 export default {
   name: "Ticket",
   data() {
     return {
-      refund_value: 0,
+      ticketList: [],
       options: [
-        { label: "无条件退款", value: 0 },
-        { label: "不能退款", value: 1 },
+        { label: "不可退款", value: 0 },
+        { label: "委托平台退款", value: 1 },
+        { label: "无条件退款", value: 2 },
       ],
     };
+  },
+  methods: {
+    delete_ticket(index) {
+      this.ticketList.splice(index, 1);
+    },
+    free_ticket() {
+      this.ticketList.push({
+        ticketType: 0,
+        ticketName: "免费票",
+        ticketPrice: 0,
+        ticketNumber: 0,
+        ticketInstructions: "无",
+        ticketRefundType: 0,
+        ticketRefundReason: "无",
+      });
+    },
+    pay_ticket() {
+      this.ticketList.push({
+        ticketType: 1,
+        ticketName: "",
+        ticketPrice: 0,
+        ticketNumber: 0,
+        ticketInstructions: "无",
+        ticketRefundType: 0,
+        ticketRefundReason: "无",
+      });
+    },
   },
 };
 </script>
@@ -88,6 +135,9 @@ export default {
 }
 .free_ticket {
   margin: 18px 26px 0 42px;
+}
+table {
+  min-width: 80%;
 }
 tr {
   text-align: center;
@@ -123,14 +173,12 @@ td:first-child {
 .ticket_price,
 .ticket_num {
   width: 72px;
-  height: 38px;
 }
 
 .refund {
   width: 135px;
-  height: 38px;
 }
-.refund_option {
+.option {
   width: 300px;
 }
 .delete {

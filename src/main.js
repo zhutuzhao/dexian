@@ -6,6 +6,13 @@ import ElementUI from "element-ui";
 // 引入echarts
 import echarts from "echarts";
 
+//引入富文本编译器
+import VueQuillEditor from 'vue-quill-editor'  
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+Vue.use(VueQuillEditor);
+
 import "element-ui/lib/theme-chalk/index.css";
 import "normalize.css/normalize.css"; //导入css基本模板
 

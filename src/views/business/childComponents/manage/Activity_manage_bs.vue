@@ -18,7 +18,8 @@
     </div>
     <add-activity
       v-else-if="
-        this.$route.path == '/Business/Activity_manage_bs/Add_activity'
+        -1 != this.$route.path.indexOf('Activity_manage_bs/Add_activity') ||
+        -1 != this.$route.path.indexOf('Activity_manage_bs/Update_activity')
       "
     />
     <activity-info v-else />
